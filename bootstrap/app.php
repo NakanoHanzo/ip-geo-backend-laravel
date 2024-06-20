@@ -12,10 +12,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // CORS-Middleware registrieren
-        $middleware->alias('cors', CorsMiddleware::class);
-        $middleware->prependToGroup('web', 'cors');
-        $middleware->prependToGroup('api', 'cors');
+       // Deaktivieren Sie den CSRF-Schutz für bestimmte Routen
+       $middleware->validateCsrfTokens(except: ['api/*']);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
